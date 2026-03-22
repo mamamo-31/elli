@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aesthetic Love Letter</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    
+    <style>
+        :root { --pink-bg: #fce4ec; --pink-main: #f06292; --pink-dark: #ad1457; --white: #ffffff; }
+
+        body {
+            background-color: var(--pink-bg);
+            font-family: 'Quicksand', sans-serif;
+            margin: 0; display: flex; justify-content: center; align-items: center;
+            height: 100vh; overflow: hidden; color: #444;
+        }
+
+        /* Floating Hearts/Flowers */
+        .heart { position: fixed; color: var(--pink-main); font-size: 20px; z-index: -1; animation: float 5s linear infinite; }
+        @keyframes float { 
+            0% { transform: translateY(100vh) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
+        }
+
+        .card {
+            background: var(--white); width: 400px; padding: 35px; border-radius: 30px;
+            box-shadow: 0 15px 35px rgba(240, 98, 146, 0.2); text-align: center;
+            border: 3px solid var(--pink-main); position: relative; 
+        }
+
+        /* Animation for slide transitions */
+        .fade-in { animation: slideUp 0.6s ease-out; }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+
+        .media-container { width: 100%; height: 230px; border-radius: 20px; overflow: hidden; margin-bottom: 20px; border: 2px solid var(--pink-bg); background: #000; }
+        .media-container img, .media-container video { width: 100%; height: 100%; object-fit: cover; }
+
+        h1 { font-family: 'Dancing Script', cursive; color: var(--pink-dark); font-size: 2.3rem; margin: 10px 0; }
+        p { font-size: 1rem; line-height: 1.5; margin-bottom: 25px; min-height: 50px; }
+
+        .btn-group { display: flex; justify-content: center; gap: 15px; position: relative; min-height: 50px; }
+        .btn {
+            background-color: var(--pink-main); color: white; padding: 12px 25px;
+            border-radius: 50px; text-decoration: none; font-weight: 600;
+            transition: all 0.3s; border: none; cursor: pointer; display: inline-block;
+        }
+        .btn:hover { background-color: var(--pink-dark); transform: translateY(-2px); }
+
+        #no-btn { background-color: #f5f5f5; color: #999; z-index: 100; transition: 0.1s; position: relative; }
+    </style>
+</head>
+<body>
+
+    <div class="card" id="card">
+        <div class="media-container" id="media-content">
+            </div>
+        
+        <h1 id="title">Loading...</h1>
+        <p id="content">Please wait a moment.</p>
+
+        <div class="btn-group" id="button-container">
+            </div>
+    </div>
+
+    <script>
+        const slides = [
+            {
+                title: "A Special Delivery...",
+                content: "You have one unread message. It's been waiting for the perfect moment to be opened.",
+                image: "https://images.unsplash.com/photo-1516589174184-c68526671ee6?q=80&w=500",
+                btn_text: "Open Letter ❤️",
+                type: "next"
+            },
+            {
+                title: "A Message for You",
+                content: "I made this little clip just to show you how much you mean to me...",
+                video: "https://www.w3schools.com/html/mov_bbb.mp4", 
+                btn_text: "Continue →",
+                type: "video"
+            },
+            {
+                title: "Our First Memory",
+                content: "I still remember the first time we talked. Everything felt so easy, and I knew right then you were special.",
+                image: "https://images.unsplash.com/photo-1529156069898-49953e39b3ac?q=80&w=500",
+                btn_text: "Turn Page →",
+                type: "next"
+            },
+            {
+                title: "To Our Future",
+                content: "I can't wait for all the coffee dates, late-night walks, and adventures we haven't even dreamed of yet.",
+                image: "https://images.unsplash.com/photo-1510337550647-e84f83e341ca?q=80&w=500",
+                btn_text: "One More Thing... →",
+                type: "next"
+            },
+            {
+                title: "The Big Question",
+                content: "I've been thinking about this for a long time... Will you be my Valentine and my 'Always'?",
+                image: "https://images.unsplash.com/photo-1494972308805-463bc619d34e?q=80&w=500",
+                btn_text: "Yes!",
+                type: "question"
+            },
+            {
+                title: "My Heart is Full! ❤️",
+                content: "I knew you were the one! Get ready for the best date ever. I'll see you very soon!",
+                image: "https://images.unsplash.com/photo-1513273195090-6338a3942d74?q=80&w=500",
+                btn_text: "Start Over ✨",
+                type: "success"
+            }
+        ];
+
+        let currentStep = 0;
+
+        function renderSlide() {
+            const data = slides[currentStep];
+            const card = document.getElementById('card');
+            
+            // Add animation class
+            card.classList.remove('fade-in');
+            void card.offsetWidth; // Trigger reflow
+            card.classList.add('fade-in');
+
+            // Update Text
+            document.getElementById('title').innerText = data.title;
+            document.getElementById('content').innerText = data.content;
+
+            // Update Media
+            const mediaContainer = document.getElementById('media-content');
+            if (data.type === 'video') {
+                mediaContainer.innerHTML = `<video autoplay muted loop controls><source src="${data.video}" type="video/mp4"></video>`;
+            } else {
+                mediaContainer.innerHTML = `<img src="${data.image}" alt="Slide Image">`;
+            }
+
+            // Update Buttons
+            const btnGroup = document.getElementById('button-container');
+            if (data.type === 'question') {
+                btnGroup.innerHTML = `
+                    <button class="btn" onclick="nextSlide()">${data.btn_text}</button>
+                    <button id="no-btn" class="btn" onmouseover="moveNoButton()">No</button>
+                `;
+            } else {
+                btnGroup.innerHTML = `<button class="btn" onclick="nextSlide()">${data.btn_text}</button>`;
+            }
+
+            // Trigger Confetti if success
+            if (data.type === 'success') {
+                celebrate();
+            }
+        }
+
+        function nextSlide() {
+            currentStep++;
+            if (currentStep >= slides.length) {
+                currentStep = 0;
+            }
+            renderSlide();
+        }
+
+        function moveNoButton() {
+            const btn = document.getElementById('no-btn');
+            const x = Math.random() * (window.innerWidth - btn.offsetWidth);
+            const y = Math.random() * (window.innerHeight - btn.offsetHeight);
+            btn.style.position = 'fixed';
+            btn.style.left = x + 'px';
+            btn.style.top = y + 'px';
+        }
+
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('heart');
+            heart.innerHTML = '🌸';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = (Math.random() * 3 + 2) + 's';
+            document.body.appendChild(heart);
+            setTimeout(() => heart.remove(), 5000);
+        }
+
+        function celebrate() {
+            var duration = 3 * 1000;
+            var end = Date.now() + duration;
+            (function frame() {
+                confetti({ particleCount: 3, angle: 60, spread: 55, origin: { x: 0 }, colors: ['#f06292', '#fce4ec', '#ad1457'] });
+                confetti({ particleCount: 3, angle: 120, spread: 55, origin: { x: 1 }, colors: ['#f06292', '#fce4ec', '#ad1457'] });
+                if (Date.now() < end) requestAnimationFrame(frame);
+            }());
+        }
+
+        // Initialize
+        setInterval(createHeart, 400);
+        renderSlide();
+    </script>
+</body>
+</html>
