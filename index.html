@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Happy Birthday Elizaethya</title>
+    <title>Happy Birth Day! Elizabeth</title>
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     
@@ -13,8 +13,14 @@
         body {
             background-color: var(--pink-bg);
             font-family: 'Quicksand', sans-serif;
-            margin: 0; display: flex; justify-content: center; align-items: center;
-            height: 100vh; overflow: hidden; color: #444;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+            overflow: auto;
+            color: #444;
         }
 
         /* Floating Hearts/Flowers */
@@ -24,10 +30,42 @@
             100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
         }
 
+        @media (max-width: 600px) {
+            .heart { font-size: 16px; }
+        }
+
         .card {
-            background: var(--white); width: 400px; padding: 35px; border-radius: 30px;
-            box-shadow: 0 15px 35px rgba(240, 98, 146, 0.2); text-align: center;
-            border: 3px solid var(--pink-main); position: relative; 
+            background: var(--white);
+            width: min(100%, 480px);
+            padding: 25px;
+            border-radius: 24px;
+            box-shadow: 0 15px 35px rgba(240, 98, 146, 0.2);
+            text-align: center;
+            border: 3px solid var(--pink-main);
+            position: relative;
+            transition: transform 0.3s ease;
+        }
+
+        @media (max-width: 600px) {
+            .card {
+                margin: 0 auto;
+                padding: 20px;
+                border-radius: 18px;
+                width: min(100%, 95vw);
+            }
+            .media-container { height: 200px; }
+            h1 { font-size: 1.8rem; }
+            p { font-size: 0.95rem; }
+            .btn-group { flex-direction: column; gap: 12px; }
+            .btn { width: 100%; padding: 12px 16px; }
+            #no-btn { position: static; left: auto; top: auto; }
+        }
+
+        @media (min-width: 601px) and (max-width: 900px) {
+            .media-container { height: 220px; }
+            h1 { font-size: 2rem; }
+            p { font-size: 0.98rem; }
+            .btn { padding: 11px 22px; }
         }
 
         /* Animation for slide transitions */
@@ -48,7 +86,7 @@
         }
         .btn:hover { background-color: var(--pink-dark); transform: translateY(-2px); }
 
-        #no-btn { background-color: #5A5A5A; color: #ffffff; z-index: 100; transition: 0.1s; position: relative; }
+        #no-btn { background-color: #ff0000; color: #fffefe; z-index: 100; transition: 0.1s; position: relative; }
     </style>
 </head>
 <body>
@@ -67,44 +105,44 @@
     <script>
         const slides = [
             {
-                title: "Happy Birthday babe❤️",
-                content: "You have one unread message. It's been waiting for the perfect moment to be opened.",
-                image: "ELLI10.jpg",
-                btn_text: "Open mo babe ❤️",
+                title: "Happy Birthday Elizabeth!...",
+                content: "You have this unread message. It's been waiting for the perfect moment to be opened.",
+                image: "elli.jpg",
+                btn_text: "Open Letter ❤️",
                 type: "next"
             },
             {
                 title: "A Message for You",
-                content: "I made this little clip just to show you how much you mean to me...",
-                video: "with my baby.jpg", 
+                content: "I made this little clip just to show you how much you mean to me... ",
+                video: "https://www.w3schools.com/html/mov_bbb.mp4", 
                 btn_text: "Continue →",
                 type: "video"
             },
             {
                 title: "Our First Memory",
                 content: "I still remember the first time we talked. Everything felt so easy, and I knew right then you were special.",
-                image: "with my baby.jpg",
+                image: "ELLI3.jpg",
                 btn_text: "Turn Page →",
                 type: "next"
             },
             {
                 title: "To Our Future",
-                content: "I can't wait for all the coffee dates, late-night walks, and adventures we haven't even dreamed of yet.",
-                image: "ELLI11.jpg",
+                content: "Babeee, OA na kung OA HAHAHAHAHA, Its just, I can't wait for all the coffee dates, late-night walks, and adventures we haven't even dreamed of yet.",
+                image: "ELLI10.jpg",
                 btn_text: "One More Thing... →",
                 type: "next"
             },
             {
-                title: "The Big Question",
-                content: "I've been thinking about this for a long time... Will you be my Valentine and my 'Always'?",
-                image: "https://images.unsplash.com/photo-1494972308805-463bc619d34e?q=80&w=500",
+                title: "The Big Question is...",
+                content: "I've been thinking about this for a long time... Will you be my forever?",
+                image: "elimy baby.jpg",
                 btn_text: "Yes!",
                 type: "question"
             },
             {
                 title: "My Heart is Full! ❤️",
-                content: "I knew you were the one! Get ready for the best date ever. I'll see you very soon!",
-                image: "https://images.unsplash.com/photo-1513273195090-6338a3942d74?q=80&w=500",
+                content: "Sabi na nga ba eh, love na love mo ako hehe, I LOVE YOU MORE BABE, HAPPY BIRTHDAY AGAIN",
+                image: "me.jpg",
                 btn_text: "Start Over ✨",
                 type: "success"
             }
